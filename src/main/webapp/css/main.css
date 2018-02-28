@@ -25,7 +25,8 @@ html {
     background-color: rgb(250, 250, 250);
     color: rgb(83, 91, 94);
 
-    background-image: url(../img/background_02.jpg);
+    background-image: url(../img/willkommen.jpg);
+    opacity: 1;
     background-repeat: no-repeat;
     background-position: center center;
     background-size: cover;
@@ -81,7 +82,7 @@ header, main {
 
 /* Farben für Links */
 a, a:visited {
-    color: rgb(193, 33, 33);
+    color: #a57400;
     text-decoration: none;
 }
 

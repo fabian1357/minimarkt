@@ -51,6 +51,7 @@ public class User implements Serializable {
     }
     @Transient
     private final Password password = new Password();
+   
 
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
