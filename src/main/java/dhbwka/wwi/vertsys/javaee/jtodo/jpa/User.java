@@ -44,6 +44,19 @@ public class User implements Serializable {
     @Size(min = 5, max = 64, message = "Der Benutzername muss zwischen fünf und 64 Zeichen lang sein.")
     @NotNull(message = "Der Benutzername darf nicht leer sein.")
     private String username;
+
+    public User(String username, String password, String name, String anschrift, String postleitzahl, String ort, String telefonnummer, String email) {
+        this.username = username;
+        this.password.password = password;
+        this.name = name;
+        this.anschrift = anschrift;
+        this.postleitzahl = postleitzahl;
+        this.ort = ort;
+        this.telefonnummer = telefonnummer;
+        this.email = email;
+        this.passwordHash = this.hashPassword(password);
+        
+    }
     
     public class Password {
         @Size(min = 6, max = 64, message = "Das Passwort muss zwischen sechs und 64 Zeichen lang sein.")
@@ -52,7 +65,30 @@ public class User implements Serializable {
     @Transient
     private final Password password = new Password();
    
+    @Column(name= "NAME", length = 64)
+    @NotNull(message = "Der Name darf nicht leer sein.")
+    private String name;
+    
+    @Column(name= "ANSCHRIFT", length = 64)
+    @NotNull(message = "Die Anschrift darf nicht leer sein.")
+    private String anschrift;
+    
+    @Column(name= "POSTLEITZAHLE", length = 5)
+    @NotNull(message = "Die Postleitzahl darf nicht leer sein.")
+    private String postleitzahl;
 
+    @Column(name= "ORT", length = 64)
+    @NotNull(message = "Der Ort darf nicht leer sein.")
+    private String ort;
+    
+    @Column(name= "TELEFONNUMMER", length = 64)
+    @NotNull(message = "Die Telefonnummer darf nicht leer sein.")
+    private String telefonnummer;
+    
+    @Column(name= "EMAIL", length = 64)
+    @NotNull(message = "Die E-Mail darf nicht leer sein.")
+    private String email;
+    
     @Column(name = "PASSWORD_HASH", length = 64)
     @NotNull(message = "Das Passwort darf nicht leer sein.")
     private String passwordHash;
@@ -79,6 +115,7 @@ public class User implements Serializable {
     }
     //</editor-fold>
 
+
     //<editor-fold defaultstate="collapsed" desc="Setter und Getter">
     public String getUsername() {
         return username;
@@ -96,6 +133,72 @@ public class User implements Serializable {
         this.tasks = tasks;
     }
     //</editor-fold>
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAnschrift() {
+        return anschrift;
+    }
+
+    public String getPlz() {
+        return postleitzahl;
+    }
+
+    public String getOrt() {
+        return ort;
+    }
+
+    public String getTelefonnummer() {
+        return telefonnummer;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setAnschrift(String anschrift) {
+        this.anschrift = anschrift;
+    }
+
+    public void setPlz(String plz) {
+        this.postleitzahl = plz;
+    }
+
+    public void setOrt(String ort) {
+        this.ort = ort;
+    }
+
+    public void setTelefon(String telefonnummer) {
+        this.telefonnummer = telefonnummer;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+    
+    
 
     //<editor-fold defaultstate="collapsed" desc="Passwort setzen und prüfen">
     /**

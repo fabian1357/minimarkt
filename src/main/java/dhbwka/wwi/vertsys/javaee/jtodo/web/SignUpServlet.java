@@ -13,6 +13,7 @@ import dhbwka.wwi.vertsys.javaee.jtodo.ejb.ValidationBean;
 import dhbwka.wwi.vertsys.javaee.jtodo.ejb.UserBean;
 import dhbwka.wwi.vertsys.javaee.jtodo.jpa.User;
 import java.io.IOException;
+import java.time.Clock;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
@@ -59,9 +60,15 @@ public class SignUpServlet extends HttpServlet {
         String username = request.getParameter("signup_username");
         String password1 = request.getParameter("signup_password1");
         String password2 = request.getParameter("signup_password2");
+        String name = request.getParameter("signup_name");
+        String anschrift = request.getParameter("signup_anschrift");
+        String postleitzahl = request.getParameter("signup_postleitzahl");
+        String ort = request.getParameter("signup_ort");
+        String telefonnummer = request.getParameter("signup_telefonnummer");
+        String email = request.getParameter("signup_email");
         
         // Eingaben prüfen
-        User user = new User(username, password1);
+        User user = new User(username, password1, name, anschrift, postleitzahl, ort, telefonnummer, email);
         List<String> errors = this.validationBean.validate(user);
         this.validationBean.validate(user.getPassword(), errors);
         
@@ -69,14 +76,17 @@ public class SignUpServlet extends HttpServlet {
             errors.add("Die beiden Passwörter stimmen nicht überein.");
         }
         
+        
         // Neuen Benutzer anlegen
         if (errors.isEmpty()) {
+            System.out.println("empty");
             try {
-                this.userBean.signup(username, password1);
+                this.userBean.signup(username, password1, name, anschrift, postleitzahl, ort, telefonnummer, email);
             } catch (UserBean.UserAlreadyExistsException ex) {
                 errors.add(ex.getMessage());
             }
-        }
+        } else 
+            System.out.println("full");
         
         // Weiter zur nächsten Seite
         if (errors.isEmpty()) {

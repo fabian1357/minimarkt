@@ -42,14 +42,22 @@ public class UserBean {
      *
      * @param username
      * @param password
+     * @param name
+     * @param anschrift
+     * @param postleitzahl
+     * @param ort
+     * @param telefonnummer
+     * @param email
      * @throws UserBean.UserAlreadyExistsException
      */
-    public void signup(String username, String password) throws UserAlreadyExistsException {
+    public void signup(String username, String password, String name, String anschrift, String postleitzahl, String ort, String telefonnummer, String email) throws UserAlreadyExistsException {
         if (em.find(User.class, username) != null) {
             throw new UserAlreadyExistsException("Der Benutzername $B ist bereits vergeben.".replace("$B", username));
         }
 
-        User user = new User(username, password);
+        User user = new User(username, password, name, anschrift, postleitzahl, ort, telefonnummer, email);
+       user.setAnschrift(anschrift);
+       user.setEmail(email);
         user.addToGroup("todo-app-user");
         em.persist(user);
     }
@@ -88,6 +96,7 @@ public class UserBean {
     public User update(User user) {
         return em.merge(user);
     }
+
 
     /**
      * Fehler: Der Benutzername ist bereits vergeben
